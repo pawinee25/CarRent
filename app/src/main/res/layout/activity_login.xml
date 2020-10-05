@@ -6,55 +6,57 @@
     android:layout_height="match_parent"
     tools:context=".LoginActivity">
 
-<!--    <LinearLayout-->
-<!--        style="@style/LinearLayoutMain"-->
-<!--        android:layout_centerInParent="true">-->
+    <LinearLayout
+        style="@style/LinearLayoutMain"
+        android:layout_centerInParent="true">
 
-<!--        <ImageView-->
-<!--            android:layout_width="200dp"-->
-<!--            android:layout_height="200dp"-->
-<!--            android:src="@drawable/car" />-->
+        <ImageView
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:src="@drawable/car" />
 
-<!--        <TextView-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:text="CarRent"-->
-<!--            android:textColor="@android:color/black"-->
-<!--            android:textSize="40sp" />-->
-
-<!--        <com.google.android.material.textfield.TextInputLayout style="@style/WrapWrap">-->
-
-<!--            <EditText-->
-<!--                android:id="@+id/mEtUsername"-->
-<!--                style="@style/EditText"-->
-<!--                android:hint="@string/username" />-->
-<!--        </com.google.android.material.textfield.TextInputLayout>-->
-
-<!--        <com.google.android.material.textfield.TextInputLayout style="@style/WrapWrap">-->
-
-<!--            <EditText-->
-<!--                android:id="@+id/mEtPassword"-->
-<!--                style="@style/EditTextPassword"-->
-<!--                android:hint="@string/password" />-->
-<!--        </com.google.android.material.textfield.TextInputLayout>-->
-
-<!--        <LinearLayout-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:orientation="horizontal">-->
-
-<!--            <Button-->
-<!--                android:id="@+id/mBtRegister"-->
-<!--                style="@style/Button"-->
-<!--                android:text="@string/register" />-->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_margin="10dp"
+            android:text="Rent a Car"
+            android:textColor="@android:color/background_dark"
+            android:textSize="40dp" />
 
 
-<!--            <Button-->
-<!--                android:id="@+id/mBtLogin"-->
-<!--                style="@style/Button"-->
-<!--                android:text="@string/login" />-->
+        <EditText
+        style="@style/EditText"
+        android:layout_width="300dp"
+        android:layout_height="match_parent"
+        android:hint="ชื่อผู้ใช้งาน" />
 
-<!--        </LinearLayout>-->
-<!--    </LinearLayout>-->
+        <EditText
+            style="@style/EditText"
+            android:layout_width="300dp"
+            android:layout_height="match_parent"
+            android:layout_marginTop="10dp"
+            android:hint="รหัสผ่าน" />
 
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginTop="10dp">
+
+            <Button
+                android:layout_width="120dp"
+                android:layout_height="40dp"
+                android:layout_marginRight="10dp"
+                android:background="@android:color/holo_blue_dark"
+                android:text="เข้าสู่ระบบ" />
+
+            <Button
+                android:id="@+id/bt_register1"
+                android:layout_width="120dp"
+                android:layout_height="40dp"
+                android:background="@android:color/holo_blue_dark"
+                android:text="สมัครสมาชิก" />
+
+        </LinearLayout>
+    </LinearLayout>
 </RelativeLayout>

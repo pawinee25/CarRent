@@ -26,6 +26,7 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
+    private static final String TAG = "MainActivity";
     private Button mBtIn;
     private ArrayList<Product> items;
     private RecyclerView mRecyclerViem;
@@ -43,13 +44,13 @@ public class MainActivity extends AppCompatActivity {
         }
         mBtIn = (Button) findViewById(R.id.bt_in);
         mRecyclerViem = (RecyclerView) findViewById(R.id.recyclerView);
-        mRecyclerViem.setLayoutManager(new GridLayoutManager(getBaseContext(),2));
+        mRecyclerViem.setLayoutManager(new GridLayoutManager(getBaseContext(), 2));
 
 
         mBtIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getBaseContext(),InproductActivity.class));
+                startActivity(new Intent(getBaseContext(), InproductActivity.class));
             }
         });
     }
@@ -62,39 +63,39 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void frtchProduct() {
-       String sql = "SELECT c.* , b.Name FROM car c INNER JOIN brand b ON c.Brand_ID = b.Brand_ID";
-               Dru.connection(ConnectDB.getConnection())
-                       .execute(sql)
-                       .commit(new ExecuteQuery() {
-                           @Override
-                           public void onComplete(ResultSet resultSet) {
-                               try {
-                                   items = new ArrayList< Product >();
-                                   while (resultSet.next()){
-                                       Product product = new Product(
-                                               resultSet.getString(1),
-                                               resultSet.getString(2),
-                                               resultSet.getDouble(3),
-                                               resultSet.getString(4),
-                                               resultSet.getString(5),
-                                               resultSet.getInt(6),
-                                               resultSet.getString(7),
-                                               resultSet.getString(8),
-                                               resultSet.getString(9)
-                                       );
-                                       items.add(product);
+        String sql = "SELECT c.* , b.Name FROM car c INNER JOIN brand b ON c.Brand_ID = b.Brand_ID";
+        Dru.connection(ConnectDB.getConnection())
+                .execute(sql)
+                .commit(new ExecuteQuery() {
+                    @Override
+                    public void onComplete(ResultSet resultSet) {
+                        try {
+                            items = new ArrayList<Product>();
+                            while (resultSet.next()) {
+                                Product product = new Product(
+                                        resultSet.getString(1),
+                                        resultSet.getString(2),
+                                        resultSet.getDouble(3),
+                                        resultSet.getString(4),
+                                        resultSet.getString(5),
+                                        resultSet.getInt(6),
+                                        resultSet.getString(7),
+                                        resultSet.getString(8),
+                                        resultSet.getString(9)
+                                );
+                                items.add(product);
 
-                                   }
+                            }
 
-                                   mRecyclerViem.setAdapter(new ProductAdapter());
+                            mRecyclerViem.setAdapter(new ProductAdapter());
 
 //                                   Log.d(TAG, "OnComplete: "+ items);
-                               } catch (SQLException e) {
-                                   e.printStackTrace();
-                               }
+                        } catch (SQLException e) {
+                            e.printStackTrace();
+                        }
 
-                           }
-                       });
+                    }
+                });
     }
 
     private class ProductAdapter extends RecyclerView.Adapter<ProductHolder> {
@@ -109,10 +110,10 @@ public class MainActivity extends AppCompatActivity {
         public void onBindViewHolder(@NonNull ProductHolder holder, int position) {
             Product product = items.get(position);
             holder.tvName.setText(product.getName());
-            holder.tvPrice.setText(product.getPrice()+" ");
-            holder.tvEngine.setText(product.getEngine()+" ");
-            Dru.loadImageCircle(holder.ivImage,ConnectDB.BASE_IMAGE + product.getImages());
-
+            holder.tvPrice.setText(product.getPrice() + " ");
+            holder.tvEngine.setText(product.getEngine() + " ");
+            Dru.loadImageCircle(holder.ivImage, "https://www.android.com/static/2016/img/share/andy-sm.png");
+            Log.d(TAG, "onBindViewHolder: " + "[" + ConnectDB.BASE_IMAGE + product.getImages() + "]");
         }
 
         @Override

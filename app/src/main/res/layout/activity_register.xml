@@ -1,68 +1,127 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:gravity="center_horizontal"
     android:orientation="vertical"
-    android:layout_marginHorizontal="10dp"
     tools:context=".RegisterActivity">
 
-    <EditText
-        android:id="@+id/edt_username"
-        android:layout_marginTop="10dp"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Username" />
+        android:layout_height="match_parent">
 
-    <EditText
-        android:id="@+id/edt_name"
-        android:layout_marginTop="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Name" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical">
 
-    <EditText
-        android:id="@+id/edt_password"
-        android:layout_marginTop="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="รหัสผ่าน" />
+            <ImageView
+                android:layout_width="150dp"
+                android:layout_height="100dp"
+                android:layout_marginTop="10dp"
+                android:src="@drawable/ccc" />
 
-    <EditText
-        android:id="@+id/edt_repassword"
-        android:layout_marginTop="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="ยืนยันรหัสผ่าน" />
+            <EditText
+                style="@style/EditText"
+                android:layout_width="350dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:hint="ชื่อผู้ใช้งาน" />
 
-    <EditText
-        android:id="@+id/edt_address"
-        android:layout_marginTop="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="ที่อยู่" />
+            <EditText
+                style="@style/EditText"
+                android:layout_width="350dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:hint="ชื่อ" />
 
-    <EditText
-        android:id="@+id/edt_tel"
-        android:layout_marginTop="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="โทรศัพท์" />
+            <EditText
+                style="@style/EditText"
+                android:layout_width="350dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:hint="นานสกุล" />
 
-    <EditText
-        android:id="@+id/edt_cardnumber"
-        android:layout_marginTop="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="เลขบัตรประจำตัวประชาชน" />
+            <EditText
+                style="@style/EditText"
+                android:layout_width="350dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:hint="เลขบัตรประจำตัวประชาชน" />
 
-    <Button
-        android:id="@+id/btn_register"
-        android:layout_marginTop="20dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="สมัตรสมาชิก" />
+            <EditText
+                style="@style/EditText"
+                android:layout_width="350dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:hint="เบอร์โทร" />
+
+            <EditText
+                style="@style/EditText"
+                android:layout_width="350dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:hint="บ้านเลขที่" />
+
+            <EditText
+                style="@style/EditText"
+                android:layout_width="350dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:hint="จังหวัด" />
+
+            <EditText
+                style="@style/EditText"
+                android:layout_width="350dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:hint="อำเภอ" />
+
+            <EditText
+                style="@style/EditText"
+                android:layout_width="350dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:hint="ตำบล" />
+
+            <EditText
+                style="@style/EditText"
+                android:layout_width="350dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:hint="รหัสไปรษณีย์" />
+
+            <EditText
+                style="@style/EditText"
+                android:layout_width="350dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:hint="รหัสผ่าน" />
+
+            <LinearLayout
+                android:layout_marginTop="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent">
+
+                <Button
+                    android:layout_width="120dp"
+                    android:layout_height="50dp"
+                    android:background="@color/design_default_color_secondary"
+                    android:text="ยืนยัน" />
+
+                <Button
+                    android:text="ยกเลิก"
+                    android:layout_marginLeft="10dp"
+                    android:layout_width="120dp"
+                    android:layout_height="50dp"
+                    android:background="@color/design_default_color_secondary" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
 
 </LinearLayout>
