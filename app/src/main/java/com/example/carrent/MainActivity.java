@@ -3,6 +3,7 @@ package com.example.carrent;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
@@ -44,7 +45,8 @@ public class MainActivity extends AppCompatActivity {
         }
         mBtIn = (Button) findViewById(R.id.bt_in);
         mRecyclerViem = (RecyclerView) findViewById(R.id.recyclerView);
-        mRecyclerViem.setLayoutManager(new GridLayoutManager(getBaseContext(), 2));
+//        mRecyclerViem.setLayoutManager(new GridLayoutManager(getBaseContext(), 1));
+        mRecyclerViem.setLayoutManager(new LinearLayoutManager(getBaseContext()));
 
 
         mBtIn.setOnClickListener(new View.OnClickListener() {
@@ -61,6 +63,9 @@ public class MainActivity extends AppCompatActivity {
 
         frtchProduct();
     }
+
+//    SELECT car.Car_ID, car.Engine, car.Type, car.Gear, car.Door, car.Price, car.Color, car.Images, car.NumberSeats, car.Register, brand.Name, model.Name FROM car INNER  JOIN brand ON car.Brand_ID = brand.Brand_ID
+//    INNER JOIN model ON model.Brand_ID = brand.Brand_ID
 
     private void frtchProduct() {
         String sql = "SELECT c.* , b.Name FROM car c INNER JOIN brand b ON c.Brand_ID = b.Brand_ID";
@@ -112,6 +117,7 @@ public class MainActivity extends AppCompatActivity {
             holder.tvName.setText(product.getName());
             holder.tvPrice.setText(product.getPrice() + " ");
             holder.tvEngine.setText(product.getEngine() + " ");
+            holder.tvColor.setText(product.getColor());
             Dru.loadImageCircle(holder.ivImage, "https://www.android.com/static/2016/img/share/andy-sm.png");
             Log.d(TAG, "onBindViewHolder: " + "[" + ConnectDB.BASE_IMAGE + product.getImages() + "]");
         }
@@ -127,6 +133,7 @@ public class MainActivity extends AppCompatActivity {
         private final TextView tvName;
         private final TextView tvPrice;
         private final TextView tvEngine;
+        private final TextView tvColor;
 
         public ProductHolder(@NonNull View itemView) {
             super(itemView);
@@ -135,6 +142,7 @@ public class MainActivity extends AppCompatActivity {
             tvName = (TextView) itemView.findViewById(R.id.tv_name);
             tvPrice = (TextView) itemView.findViewById(R.id.tv_price);
             tvEngine = (TextView) itemView.findViewById(R.id.tv_engine);
+            tvColor = (TextView) itemView.findViewById(R.id.tv_color);
 
         }
     }

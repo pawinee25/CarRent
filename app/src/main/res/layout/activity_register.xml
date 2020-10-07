@@ -18,12 +18,14 @@
             android:orientation="vertical">
 
             <ImageView
+                android:id="@+id/image_profile"
                 android:layout_width="150dp"
-                android:layout_height="100dp"
+                android:layout_height="150dp"
                 android:layout_marginTop="10dp"
                 android:src="@drawable/ccc" />
 
             <EditText
+                android:id="@+id/edt_username"
                 style="@style/EditText"
                 android:layout_width="350dp"
                 android:layout_height="wrap_content"
@@ -31,6 +33,7 @@
                 android:hint="ชื่อผู้ใช้งาน" />
 
             <EditText
+                android:id="@+id/edt_name"
                 style="@style/EditText"
                 android:layout_width="350dp"
                 android:layout_height="wrap_content"
@@ -38,6 +41,7 @@
                 android:hint="ชื่อ" />
 
             <EditText
+                android:id="@+id/edt_surname"
                 style="@style/EditText"
                 android:layout_width="350dp"
                 android:layout_height="wrap_content"
@@ -45,6 +49,7 @@
                 android:hint="นานสกุล" />
 
             <EditText
+                android:id="@+id/edt_idcard"
                 style="@style/EditText"
                 android:layout_width="350dp"
                 android:layout_height="wrap_content"
@@ -52,6 +57,7 @@
                 android:hint="เลขบัตรประจำตัวประชาชน" />
 
             <EditText
+                android:id="@+id/edt_tel"
                 style="@style/EditText"
                 android:layout_width="350dp"
                 android:layout_height="wrap_content"
@@ -59,6 +65,7 @@
                 android:hint="เบอร์โทร" />
 
             <EditText
+                android:id="@+id/edt_house"
                 style="@style/EditText"
                 android:layout_width="350dp"
                 android:layout_height="wrap_content"
@@ -66,6 +73,7 @@
                 android:hint="บ้านเลขที่" />
 
             <EditText
+                android:id="@+id/edt_province"
                 style="@style/EditText"
                 android:layout_width="350dp"
                 android:layout_height="wrap_content"
@@ -73,6 +81,7 @@
                 android:hint="จังหวัด" />
 
             <EditText
+                android:id="@+id/edt_district"
                 style="@style/EditText"
                 android:layout_width="350dp"
                 android:layout_height="wrap_content"
@@ -80,6 +89,7 @@
                 android:hint="อำเภอ" />
 
             <EditText
+                android:id="@+id/edt_subdistrict"
                 style="@style/EditText"
                 android:layout_width="350dp"
                 android:layout_height="wrap_content"
@@ -87,6 +97,7 @@
                 android:hint="ตำบล" />
 
             <EditText
+                android:id="@+id/edt_postalcode"
                 style="@style/EditText"
                 android:layout_width="350dp"
                 android:layout_height="wrap_content"
@@ -94,6 +105,7 @@
                 android:hint="รหัสไปรษณีย์" />
 
             <EditText
+                android:id="@+id/edt_password"
                 style="@style/EditText"
                 android:layout_width="350dp"
                 android:layout_height="wrap_content"
@@ -102,16 +114,19 @@
 
             <LinearLayout
                 android:layout_marginTop="10dp"
+                android:layout_marginBottom="20dp"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent">
 
                 <Button
+                    android:id="@+id/bt_confirm"
                     android:layout_width="120dp"
                     android:layout_height="50dp"
                     android:background="@color/design_default_color_secondary"
                     android:text="ยืนยัน" />
 
                 <Button
+                    android:id="@+id/bt_cancel"
                     android:text="ยกเลิก"
                     android:layout_marginLeft="10dp"
                     android:layout_width="120dp"
