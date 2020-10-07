@@ -61,47 +61,47 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
-        frtchProduct();
+//        frtchProduct();
     }
 
 //    SELECT car.Car_ID, car.Engine, car.Type, car.Gear, car.Door, car.Price, car.Color, car.Images, car.NumberSeats, car.Register, brand.Name, model.Name FROM car INNER  JOIN brand ON car.Brand_ID = brand.Brand_ID
 //    INNER JOIN model ON model.Brand_ID = brand.Brand_ID
 
-    private void frtchProduct() {
-        String sql = "SELECT c.* , b.Name FROM car c INNER JOIN brand b ON c.Brand_ID = b.Brand_ID";
-        Dru.connection(ConnectDB.getConnection())
-                .execute(sql)
-                .commit(new ExecuteQuery() {
-                    @Override
-                    public void onComplete(ResultSet resultSet) {
-                        try {
-                            items = new ArrayList<Product>();
-                            while (resultSet.next()) {
-                                Product product = new Product(
-                                        resultSet.getString(1),
-                                        resultSet.getString(2),
-                                        resultSet.getDouble(3),
-                                        resultSet.getString(4),
-                                        resultSet.getString(5),
-                                        resultSet.getInt(6),
-                                        resultSet.getString(7),
-                                        resultSet.getString(8),
-                                        resultSet.getString(9)
-                                );
-                                items.add(product);
-
-                            }
-
-                            mRecyclerViem.setAdapter(new ProductAdapter());
-
-//                                   Log.d(TAG, "OnComplete: "+ items);
-                        } catch (SQLException e) {
-                            e.printStackTrace();
-                        }
-
-                    }
-                });
-    }
+//    private void frtchProduct() {
+//        String sql = "SELECT c.* , b.Name FROM car c INNER JOIN brand b ON c.Brand_ID = b.Brand_ID";
+//        Dru.connection(ConnectDB.getConnection())
+//                .execute(sql)
+//                .commit(new ExecuteQuery() {
+//                    @Override
+//                    public void onComplete(ResultSet resultSet) {
+//                        try {
+//                            items = new ArrayList<Product>();
+//                            while (resultSet.next()) {
+//                                Product product = new Product(
+//                                        resultSet.getString(1),
+//                                        resultSet.getString(2),
+//                                        resultSet.getDouble(3),
+//                                        resultSet.getString(4),
+//                                        resultSet.getString(5),
+//                                        resultSet.getInt(6),
+//                                        resultSet.getString(7),
+//                                        resultSet.getString(8),
+//                                        resultSet.getString(9)
+//                                );
+//                                items.add(product);
+//
+//                            }
+//
+//                            mRecyclerViem.setAdapter(new ProductAdapter());
+//
+////                                   Log.d(TAG, "OnComplete: "+ items);
+//                        } catch (SQLException e) {
+//                            e.printStackTrace();
+//                        }
+//
+//                    }
+//                });
+//    }
 
     private class ProductAdapter extends RecyclerView.Adapter<ProductHolder> {
         @NonNull

@@ -43,7 +43,7 @@ public class RegisterViewModel extends ViewModel {
     }
 
     void requestCheckUsername(String username) {
-        repository.reuestCheckUsername(username);
+        repository.requestCheckUsername(username);
     }
 
     void requestregister(String username, String name, String surname, String idcardnumber, String tel, String housenumber, String province, String district, String subdisrict, String postalcode, String password,String repassword) {

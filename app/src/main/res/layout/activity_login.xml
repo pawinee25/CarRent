@@ -26,12 +26,14 @@
 
 
         <EditText
-        style="@style/EditText"
-        android:layout_width="300dp"
-        android:layout_height="match_parent"
-        android:hint="ชื่อผู้ใช้งาน" />
+            android:id="@+id/edt_loginusername"
+            style="@style/EditText"
+            android:layout_width="300dp"
+            android:layout_height="match_parent"
+            android:hint="ชื่อผู้ใช้งาน" />
 
         <EditText
+            android:id="@+id/edt_loginpassword"
             style="@style/EditText"
             android:layout_width="300dp"
             android:layout_height="match_parent"

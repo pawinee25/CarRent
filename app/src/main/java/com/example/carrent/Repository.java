@@ -1,5 +1,7 @@
 package com.example.carrent;
 
+import android.util.Log;
+
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
@@ -12,12 +14,13 @@ import java.sql.SQLException;
 import java.util.Objects;
 
 public class Repository {
+    private static final String TAG = "Repository";
 
     private MutableLiveData<Objects> _responseregister = new MutableLiveData<>();
     private MutableLiveData<Boolean> _responsecheckusername = new MutableLiveData<>();
     private MutableLiveData<Boolean> _responsecheckidcardnumber = new MutableLiveData<>();
     private MutableLiveData<Boolean> _responsetel = new MutableLiveData<>();
-
+    private MutableLiveData<Boolean> _responselogin = new MutableLiveData<>();
 
     LiveData<Objects> responseregister() {
         return _responseregister;
@@ -35,8 +38,34 @@ public class Repository {
         return _responsetel;
     }
 
+    LiveData<Boolean> responselogin() {
+        return _responselogin;
+    }
 
-    void reuestCheckUsername(String username) {
+    void requestLogin(String username, String password) {
+        String sql = "SELECT * FROM `user` WHERE UserName = '" + username + "' AND Password = '" + password + "'";
+        Log.d(TAG, "requestLogin: "+sql);
+        Dru.connection(ConnectDB.getConnection())
+                .execute(sql)
+                .commit(new ExecuteQuery() {
+                    @Override
+                    public void onComplete(ResultSet resultSet) {
+                        try {
+                            if (resultSet.next()){
+                                _responselogin.setValue(true);
+                            } else {
+                                _responselogin.setValue(false);
+                            }
+                        } catch (SQLException e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+                });
+    }
+
+
+    void requestCheckUsername(String username) {
         String sql = "SELECT * FROM `user` WHERE UserName = '" + username + "'";
         Dru.connection(ConnectDB.getConnection())
                 .execute(sql)
