@@ -1,6 +1,8 @@
 package com.example.carrent;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -11,6 +13,8 @@ import android.widget.Toast;
 
 import com.adedom.library.Dru;
 import com.adedom.library.ExecuteUpdate;
+
+import java.util.Objects;
 
 public class RegisterActivity extends AppCompatActivity {
 
@@ -28,11 +32,14 @@ public class RegisterActivity extends AppCompatActivity {
     private EditText mEdtpassword;
     private Button mBtconfirm;
     private Button mBtcancel;
+    private RegisterViewModel viewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+
+        viewModel = new ViewModelProvider(this).get(RegisterViewModel.class);
 
         mEdtusername = (EditText) findViewById(R.id.edt_username);
         mEdtname = (EditText) findViewById(R.id.edt_name);
@@ -48,6 +55,24 @@ public class RegisterActivity extends AppCompatActivity {
         mBtcancel = (Button) findViewById(R.id.bt_cancel);
         mBtconfirm = (Button) findViewById(R.id.bt_confirm);
 
+        viewModel.register().observe(this, new Observer<Objects>() {
+            @Override
+            public void onChanged(Objects objects) {
+                mEdtusername.setText("");
+                mEdtname.setText("");
+                mEdtsurname.setText("");
+                mEdtidcard.setText("");
+                mEdttel.setText("");
+                mEdthouse.setText("");
+                mEdtprovince.setText("");
+                mEdtdistrict.setText("");
+                mEdtsubdistrict.setText("");
+                mEdtpostalcode.setText("");
+                mEdtpassword.setText("");
+
+                Toast.makeText(getBaseContext(), "สำเร็จ", Toast.LENGTH_SHORT).show();
+            }
+        });
 
         mBtconfirm.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -65,33 +90,7 @@ public class RegisterActivity extends AppCompatActivity {
                 String Postalcode = mEdtpostalcode.getText().toString().trim();
                 String Password = mEdtpassword.getText().toString().trim();
 
-                String sql = "INSERT INTO `user`(`UserName`, `Name`, `SurName`, `IDCardNumber`, `Tel`, `HouseNumber`, `Province`, `District`, `SubDistrct`, `Postalcode`, `Password`) " +
-                        "VALUES ('" + UserName + "','" + Name + "','" + SurName + "','" + IDCardNumber + "','" + Tel + "','" + HouseNumber + "','" + Province + "','" + District + "','" + SubDistrict + "','" + Postalcode + "','" + Password + "')";
-
-                Log.d(TAG, "onClick: "+sql);
-
-
-                Dru.connection(ConnectDB.getConnection())
-                        .execute(sql)
-                        .commit(new ExecuteUpdate() {
-                            @Override
-                            public void onComplete() {
-                                mEdtusername.setText("");
-                                mEdtname.setText("");
-                                mEdtsurname.setText("");
-                                mEdtidcard.setText("");
-                                mEdttel.setText("");
-                                mEdthouse.setText("");
-                                mEdtprovince.setText("");
-                                mEdtdistrict.setText("");
-                                mEdtsubdistrict.setText("");
-                                mEdtpostalcode.setText("");
-                                mEdtpassword.setText("");
-
-                                Toast.makeText(getBaseContext(), "สำเร็จ", Toast.LENGTH_SHORT).show();
-
-                            }
-                        });
+                viewModel.register(UserName, Name, SurName, IDCardNumber, Tel, HouseNumber, Province, District, SubDistrict, Postalcode, Password);
 
 
             }
