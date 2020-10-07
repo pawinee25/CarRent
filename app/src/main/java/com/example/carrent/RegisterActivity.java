@@ -5,14 +5,10 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-
-import com.adedom.library.Dru;
-import com.adedom.library.ExecuteUpdate;
 
 import java.util.Objects;
 
@@ -33,6 +29,7 @@ public class RegisterActivity extends AppCompatActivity {
     private Button mBtconfirm;
     private Button mBtcancel;
     private RegisterViewModel viewModel;
+    private EditText mEdtrepassword;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,10 +49,11 @@ public class RegisterActivity extends AppCompatActivity {
         mEdtsubdistrict = (EditText) findViewById(R.id.edt_subdistrict);
         mEdtpostalcode = (EditText) findViewById(R.id.edt_postalcode);
         mEdtpassword = (EditText) findViewById(R.id.edt_password);
+        mEdtrepassword = (EditText) findViewById(R.id.edt_repassword);
         mBtcancel = (Button) findViewById(R.id.bt_cancel);
         mBtconfirm = (Button) findViewById(R.id.bt_confirm);
 
-        viewModel.register().observe(this, new Observer<Objects>() {
+        viewModel.responseregister().observe(this, new Observer<Objects>() {
             @Override
             public void onChanged(Objects objects) {
                 mEdtusername.setText("");
@@ -69,15 +67,41 @@ public class RegisterActivity extends AppCompatActivity {
                 mEdtsubdistrict.setText("");
                 mEdtpostalcode.setText("");
                 mEdtpassword.setText("");
+                mEdtrepassword.setText("");
 
                 Toast.makeText(getBaseContext(), "สำเร็จ", Toast.LENGTH_SHORT).show();
             }
         });
 
-        mBtconfirm.setOnClickListener(new View.OnClickListener() {
+        viewModel.responsecheckusername().observe(this, new Observer<Boolean>() {
             @Override
-            public void onClick(View view) {
+            public void onChanged(Boolean aBoolean) {
+                String IDCardNumber = mEdtidcard.getText().toString().trim();
 
+                if (aBoolean) {
+                    Toast.makeText(getBaseContext(), "ชื่อซ้ำ", Toast.LENGTH_SHORT).show();
+                } else {
+                    viewModel.requestcheckidcardnumber(IDCardNumber);
+                }
+            }
+        });
+
+        viewModel.responsetel().observe(this, new Observer<Boolean>() {
+            @Override
+            public void onChanged(Boolean aBoolean) {
+                String Tel = mEdttel.getText().toString().trim();
+
+                if (aBoolean) {
+                    Toast.makeText(getBaseContext(), "เบอร์ซ้ำ", Toast.LENGTH_SHORT).show();
+                } else {
+                    viewModel.requesttel(Tel);
+                }
+            }
+        });
+
+        viewModel.responsecheckidcardnumber().observe(this, new Observer<Boolean>() {
+            @Override
+            public void onChanged(Boolean aBoolean) {
                 String UserName = mEdtusername.getText().toString().trim();
                 String Name = mEdtname.getText().toString().trim();
                 String SurName = mEdtsurname.getText().toString().trim();
@@ -89,11 +113,34 @@ public class RegisterActivity extends AppCompatActivity {
                 String SubDistrict = mEdtsubdistrict.getText().toString().trim();
                 String Postalcode = mEdtpostalcode.getText().toString().trim();
                 String Password = mEdtpassword.getText().toString().trim();
+                String Repassword = mEdtrepassword.getText().toString().trim();
 
-                viewModel.register(UserName, Name, SurName, IDCardNumber, Tel, HouseNumber, Province, District, SubDistrict, Postalcode, Password);
+                if (aBoolean) {
+                    Toast.makeText(getBaseContext(), "IDCardNumber repeat", Toast.LENGTH_SHORT).show();
+                } else {
+                    viewModel.requestregister(UserName, Name, SurName, IDCardNumber, Tel, HouseNumber, Province, District, SubDistrict, Postalcode, Password,Repassword);
 
+                }
+            }
+        });
+
+        mBtconfirm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                String UserName = mEdtusername.getText().toString().trim();
+
+                viewModel.requestCheckUsername(UserName);
 
             }
         });
+
+        viewModel.responseToast().observe(this, new Observer<String>() {
+            @Override
+            public void onChanged(String s) {
+                Toast.makeText(getBaseContext(), s, Toast.LENGTH_SHORT).show();
+            }
+        });
+
     }
 }
