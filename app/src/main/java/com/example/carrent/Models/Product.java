@@ -1,100 +1,117 @@
 package com.example.carrent.Models;
 
 public class Product {
-    private String CarID;
-    private String Engine;
-    private double Price;
-    private String Color;
-    private String Images;
-    private int Number;
-    private String Register;
-    private String BrandID;
-    private String Name;
+    private String engine;
+    private String type;
+    private String gear;
+    private String door;
+    private Double price;
+    private String color;
+    private String images;
+    private String numberseats;
+    private String register;
+    private String brandname;
+    private String modelname;
 
-    public Product() {
-    }
-
-    public Product(String carID, String engine, double price, String color, String images, int number, String register, String brandID, String name) {
-        CarID = carID;
-        Engine = engine;
-        Price = price;
-        Color = color;
-        Images = images;
-        Number = number;
-        Register = register;
-        BrandID = brandID;
-        Name = name;
-    }
-
-    public String getCarID() {
-        return CarID;
-    }
-
-    public void setCarID(String carID) {
-        CarID = carID;
+    public Product(String engine, String type, String gear, String door, Double price, String color, String images, String numberseats, String register, String brandname, String modelname) {
+        this.engine = engine;
+        this.type = type;
+        this.gear = gear;
+        this.door = door;
+        this.price = price;
+        this.color = color;
+        this.images = images;
+        this.numberseats = numberseats;
+        this.register = register;
+        this.brandname = brandname;
+        this.modelname = modelname;
     }
 
     public String getEngine() {
-        return Engine;
+        return engine;
     }
 
     public void setEngine(String engine) {
-        Engine = engine;
+        this.engine = engine;
     }
 
-    public double getPrice() {
-        return Price;
+    public String getType() {
+        return type;
     }
 
-    public void setPrice(double price) {
-        Price = price;
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public String getGear() {
+        return gear;
+    }
+
+    public void setGear(String gear) {
+        this.gear = gear;
+    }
+
+    public String getDoor() {
+        return door;
+    }
+
+    public void setDoor(String door) {
+        this.door = door;
+    }
+
+    public Double getPrice() {
+        return price;
+    }
+
+    public void setPrice(Double price) {
+        this.price = price;
     }
 
     public String getColor() {
-        return Color;
+        return color;
     }
 
     public void setColor(String color) {
-        Color = color;
+        this.color = color;
     }
 
     public String getImages() {
-        return Images;
+        return images;
     }
 
     public void setImages(String images) {
-        Images = images;
+        this.images = images;
     }
 
-    public int getNumber() {
-        return Number;
+    public String getNumberseats() {
+        return numberseats;
     }
 
-    public void setNumber(int number) {
-        Number = number;
+    public void setNumberseats(String numberseats) {
+        this.numberseats = numberseats;
     }
 
     public String getRegister() {
-        return Register;
+        return register;
     }
 
     public void setRegister(String register) {
-        Register = register;
+        this.register = register;
     }
 
-    public String getBrandID() {
-        return BrandID;
+    public String getBrandname() {
+        return brandname;
     }
 
-    public void setBrandID(String brandID) {
-        BrandID = brandID;
+    public void setBrandname(String brandname) {
+        this.brandname = brandname;
     }
 
-    public String getName() {
-        return Name;
+    public String getModelname() {
+        return modelname;
     }
 
-    public void setName(String name) {
-        Name = name;
+    public void setModelname(String modelname) {
+        this.modelname = modelname;
     }
 }

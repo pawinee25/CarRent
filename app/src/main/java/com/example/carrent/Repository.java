@@ -8,9 +8,11 @@ import androidx.lifecycle.MutableLiveData;
 import com.adedom.library.Dru;
 import com.adedom.library.ExecuteQuery;
 import com.adedom.library.ExecuteUpdate;
+import com.example.carrent.Models.Product;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Objects;
 
 public class Repository {
@@ -21,6 +23,7 @@ public class Repository {
     private MutableLiveData<Boolean> _responsecheckidcardnumber = new MutableLiveData<>();
     private MutableLiveData<Boolean> _responsetel = new MutableLiveData<>();
     private MutableLiveData<Boolean> _responselogin = new MutableLiveData<>();
+    private MutableLiveData<ArrayList<Product>> _responseProduct = new MutableLiveData<>();
 
     LiveData<Objects> responseregister() {
         return _responseregister;
@@ -40,6 +43,10 @@ public class Repository {
 
     LiveData<Boolean> responselogin() {
         return _responselogin;
+    }
+
+    LiveData<ArrayList<Product>> responseProduct() {
+        return _responseProduct;
     }
 
     void requestLogin(String username, String password) {
@@ -135,6 +142,43 @@ public class Repository {
                     @Override
                     public void onComplete() {
                         _responseregister.setValue(null);
+                    }
+                });
+    }
+
+ void requestProduct() {
+        String sql = "SELECT car.Engine, car.Type, car.Gear, car.Door, car.Price, car.Color, car.Images, car.NumberSeats, car.Register, brand.BrandName, model.ModelName FROM car INNER  JOIN brand ON car.Brand_ID = brand.Brand_ID\n" +
+                " INNER JOIN model ON model.Brand_ID = brand.Brand_ID";
+        Dru.connection(ConnectDB.getConnection())
+                .execute(sql)
+                .commit(new ExecuteQuery() {
+                    @Override
+                    public void onComplete(ResultSet resultSet) {
+                        try {
+                            ArrayList<Product> items = new ArrayList<Product>();
+                            while (resultSet.next()) {
+                                Product product = new Product(
+                                        resultSet.getString(1),
+                                        resultSet.getString(2),
+                                        resultSet.getString(3),
+                                        resultSet.getString(4),
+                                        resultSet.getDouble(5),
+                                        resultSet.getString(6),
+                                        resultSet.getString(7),
+                                        resultSet.getString(8),
+                                        resultSet.getString(9),
+                                        resultSet.getString(10),
+                                        resultSet.getString(11)
+                                );
+                                items.add(product);
+                            }
+
+                            _responseProduct.setValue(items);
+
+                        } catch (SQLException e) {
+                            e.printStackTrace();
+                        }
+
                     }
                 });
     }
