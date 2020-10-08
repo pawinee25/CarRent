@@ -24,6 +24,7 @@ public class Repository {
     private MutableLiveData<Boolean> _responsetel = new MutableLiveData<>();
     private MutableLiveData<Boolean> _responselogin = new MutableLiveData<>();
     private MutableLiveData<ArrayList<Product>> _responseProduct = new MutableLiveData<>();
+    private MutableLiveData<Product> _responseProductDetail = new MutableLiveData<>();
 
     LiveData<Objects> responseregister() {
         return _responseregister;
@@ -49,16 +50,20 @@ public class Repository {
         return _responseProduct;
     }
 
+    LiveData<Product> responseProductDetail() {
+        return _responseProductDetail;
+    }
+
     void requestLogin(String username, String password) {
         String sql = "SELECT * FROM `user` WHERE UserName = '" + username + "' AND Password = '" + password + "'";
-        Log.d(TAG, "requestLogin: "+sql);
+        Log.d(TAG, "requestLogin: " + sql);
         Dru.connection(ConnectDB.getConnection())
                 .execute(sql)
                 .commit(new ExecuteQuery() {
                     @Override
                     public void onComplete(ResultSet resultSet) {
                         try {
-                            if (resultSet.next()){
+                            if (resultSet.next()) {
                                 _responselogin.setValue(true);
                             } else {
                                 _responselogin.setValue(false);
@@ -146,9 +151,9 @@ public class Repository {
                 });
     }
 
- void requestProduct() {
-        String sql = "SELECT car.Engine, car.Type, car.Gear, car.Door, car.Price, car.Color, car.Images, car.NumberSeats, car.Register, brand.BrandName, model.ModelName FROM car INNER  JOIN brand ON car.Brand_ID = brand.Brand_ID\n" +
-                " INNER JOIN model ON model.Brand_ID = brand.Brand_ID";
+    void requestProduct() {
+        String sql = "SELECT car.Car_ID, car.Engine, car.Type, car.Gear, car.Door, car.Price, car.Color, car.Images, car.NumberSeats, car.Register, brand.BrandName, model.ModelName " +
+                "FROM car INNER  JOIN brand ON car.Brand_ID = brand.Brand_ID INNER JOIN model ON model.Brand_ID = brand.Brand_ID";
         Dru.connection(ConnectDB.getConnection())
                 .execute(sql)
                 .commit(new ExecuteQuery() {
@@ -158,17 +163,18 @@ public class Repository {
                             ArrayList<Product> items = new ArrayList<Product>();
                             while (resultSet.next()) {
                                 Product product = new Product(
-                                        resultSet.getString(1),
+                                        resultSet.getInt(1),
                                         resultSet.getString(2),
                                         resultSet.getString(3),
                                         resultSet.getString(4),
-                                        resultSet.getDouble(5),
-                                        resultSet.getString(6),
+                                        resultSet.getString(5),
+                                        resultSet.getDouble(6),
                                         resultSet.getString(7),
                                         resultSet.getString(8),
                                         resultSet.getString(9),
                                         resultSet.getString(10),
-                                        resultSet.getString(11)
+                                        resultSet.getString(11),
+                                        resultSet.getString(12)
                                 );
                                 items.add(product);
                             }
@@ -182,4 +188,40 @@ public class Repository {
                     }
                 });
     }
+
+    void requestCarDetail(int carid) {
+        String sql = "SELECT car.Car_ID, car.Engine, car.Type, car.Gear, car.Door, car.Price, car.Color, car.Images, car.NumberSeats, car.Register, brand.BrandName, model.ModelName " +
+                "FROM car INNER JOIN brand ON car.Brand_ID = brand.Brand_ID INNER JOIN model ON model.Brand_ID = brand.Brand_ID WHERE Car_ID = '" + carid + "'";
+
+        Dru.connection(ConnectDB.getConnection())
+                .execute(sql)
+                .commit(new ExecuteQuery() {
+                    @Override
+                    public void onComplete(ResultSet resultSet) {
+                        try {
+                            Product product = null;
+                            if (resultSet.next()) {
+                                product = new Product(
+                                        resultSet.getInt(1),
+                                        resultSet.getString(2),
+                                        resultSet.getString(3),
+                                        resultSet.getString(4),
+                                        resultSet.getString(5),
+                                        resultSet.getDouble(6),
+                                        resultSet.getString(7),
+                                        resultSet.getString(8),
+                                        resultSet.getString(9),
+                                        resultSet.getString(10),
+                                        resultSet.getString(11),
+                                        resultSet.getString(12)
+                                );
+                            }
+                            _responseProductDetail.setValue(product);
+                        } catch (SQLException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+    }
+
 }

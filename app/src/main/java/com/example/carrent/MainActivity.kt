@@ -2,7 +2,6 @@ package com.example.carrent
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.adedom.library.Dru
@@ -32,7 +31,8 @@ class MainActivity : BaseActivity() {
         }
 
         adt.onClick = {
-            toast(it.brandname)
+//            toast(it.carid.toString())
+            startActivity(Intent(baseContext, CarDetailActivity::class.java))
         }
 
         viewModel.responseProduct().observe {

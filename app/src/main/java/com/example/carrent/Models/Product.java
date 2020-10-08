@@ -1,6 +1,7 @@
 package com.example.carrent.Models;
 
 public class Product {
+    private int carid;
     private String engine;
     private String type;
     private String gear;
@@ -13,7 +14,8 @@ public class Product {
     private String brandname;
     private String modelname;
 
-    public Product(String engine, String type, String gear, String door, Double price, String color, String images, String numberseats, String register, String brandname, String modelname) {
+    public Product(int carid, String engine, String type, String gear, String door, Double price, String color, String images, String numberseats, String register, String brandname, String modelname) {
+        this.carid = carid;
         this.engine = engine;
         this.type = type;
         this.gear = gear;
@@ -25,6 +27,14 @@ public class Product {
         this.register = register;
         this.brandname = brandname;
         this.modelname = modelname;
+    }
+
+    public int getCarid() {
+        return carid;
+    }
+
+    public void setCarid(int carid) {
+        this.carid = carid;
     }
 
     public String getEngine() {
