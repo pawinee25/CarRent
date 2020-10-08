@@ -1,146 +1,78 @@
-package com.example.carrent;
+package com.example.carrent
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
+import android.os.Bundle
+import androidx.lifecycle.ViewModelProvider
+import kotlinx.android.synthetic.main.activity_register.*
 
-import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.Toast;
+class RegisterActivity : BaseActivity() {
 
-import java.util.Objects;
+    private lateinit var viewModel: RegisterViewModel
 
-public class RegisterActivity extends AppCompatActivity {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_register)
 
-    private static final String TAG = "RegisterActivity";
-    private EditText mEdtusername;
-    private EditText mEdtname;
-    private EditText mEdtsurname;
-    private EditText mEdtidcard;
-    private EditText mEdttel;
-    private EditText mEdthouse;
-    private EditText mEdtprovince;
-    private EditText mEdtdistrict;
-    private EditText mEdtsubdistrict;
-    private EditText mEdtpostalcode;
-    private EditText mEdtpassword;
-    private Button mBtconfirm;
-    private Button mBtcancel;
-    private RegisterViewModel viewModel;
-    private EditText mEdtrepassword;
+        viewModel = ViewModelProvider(this).get(RegisterViewModel::class.java)
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_register);
-
-        viewModel = new ViewModelProvider(this).get(RegisterViewModel.class);
-
-        mEdtusername = (EditText) findViewById(R.id.edt_username);
-        mEdtname = (EditText) findViewById(R.id.edt_name);
-        mEdtsurname = (EditText) findViewById(R.id.edt_surname);
-        mEdtidcard = (EditText) findViewById(R.id.edt_idcard);
-        mEdttel = (EditText) findViewById(R.id.edt_tel);
-        mEdthouse = (EditText) findViewById(R.id.edt_house);
-        mEdtprovince = (EditText) findViewById(R.id.edt_province);
-        mEdtdistrict = (EditText) findViewById(R.id.edt_district);
-        mEdtsubdistrict = (EditText) findViewById(R.id.edt_subdistrict);
-        mEdtpostalcode = (EditText) findViewById(R.id.edt_postalcode);
-        mEdtpassword = (EditText) findViewById(R.id.edt_password);
-        mEdtrepassword = (EditText) findViewById(R.id.edt_repassword);
-        mBtcancel = (Button) findViewById(R.id.bt_cancel);
-        mBtconfirm = (Button) findViewById(R.id.bt_confirm);
-
-        viewModel.responseregister().observe(this, new Observer<Objects>() {
-            @Override
-            public void onChanged(Objects objects) {
-                mEdtusername.setText("");
-                mEdtname.setText("");
-                mEdtsurname.setText("");
-                mEdtidcard.setText("");
-                mEdttel.setText("");
-                mEdthouse.setText("");
-                mEdtprovince.setText("");
-                mEdtdistrict.setText("");
-                mEdtsubdistrict.setText("");
-                mEdtpostalcode.setText("");
-                mEdtpassword.setText("");
-                mEdtrepassword.setText("");
-
-                Toast.makeText(getBaseContext(), "สำเร็จ", Toast.LENGTH_SHORT).show();
+        viewModel.responseregister().observe {
+            edt_username.setText("")
+            edt_name.setText("")
+            edt_surname.setText("")
+            edt_idcard.setText("")
+            edt_tel.setText("")
+            edt_house.setText("")
+            edt_province.setText("")
+            edt_district.setText("")
+            edt_subdistrict.setText("")
+            edt_postalcode.setText("")
+            edt_password.setText("")
+            edt_repassword.setText("")
+            toast("สำเร็จ")
+        }
+        viewModel.responsecheckusername().observe {
+            val iDCardNumber = edt_idcard.getContents()
+            if (it) {
+                toast("ชื่อซ้ำ")
+            } else {
+                viewModel.requestcheckidcardnumber(iDCardNumber)
             }
-        });
-
-        viewModel.responsecheckusername().observe(this, new Observer<Boolean>() {
-            @Override
-            public void onChanged(Boolean aBoolean) {
-                String IDCardNumber = mEdtidcard.getText().toString().trim();
-
-                if (aBoolean) {
-                    Toast.makeText(getBaseContext(), "ชื่อซ้ำ", Toast.LENGTH_SHORT).show();
-                } else {
-                    viewModel.requestcheckidcardnumber(IDCardNumber);
-                }
+        }
+        viewModel.responsetel().observe {
+            val tel = edt_tel.getContents()
+            if (it) {
+                toast("เบอร์ซ้ำ")
+            } else {
+                viewModel.requesttel(tel)
             }
-        });
-
-        viewModel.responsetel().observe(this, new Observer<Boolean>() {
-            @Override
-            public void onChanged(Boolean aBoolean) {
-                String Tel = mEdttel.getText().toString().trim();
-
-                if (aBoolean) {
-                    Toast.makeText(getBaseContext(), "เบอร์ซ้ำ", Toast.LENGTH_SHORT).show();
-                } else {
-                    viewModel.requesttel(Tel);
-                }
+        }
+        viewModel.responsecheckidcardnumber().observe {
+            val userName = edt_username.getContents()
+            val name = edt_name.getContents()
+            val surName = edt_surname.getContents()
+            val iDCardNumber = edt_idcard.getContents()
+            val tel = edt_tel.getContents()
+            val houseNumber = edt_house.getContents()
+            val province = edt_province.getContents()
+            val district = edt_district.getContents()
+            val subDistrict = edt_subdistrict.getContents()
+            val postalcode = edt_postalcode.getContents()
+            val password = edt_password.getContents()
+            val repassword = edt_repassword.getContents()
+            if (it) {
+                toast("IDCardNumber repeat")
+            } else {
+                viewModel.requestregister(userName, name, surName, iDCardNumber, tel, houseNumber, province, district, subDistrict, postalcode, password, repassword)
             }
-        });
+        }
 
-        viewModel.responsecheckidcardnumber().observe(this, new Observer<Boolean>() {
-            @Override
-            public void onChanged(Boolean aBoolean) {
-                String UserName = mEdtusername.getText().toString().trim();
-                String Name = mEdtname.getText().toString().trim();
-                String SurName = mEdtsurname.getText().toString().trim();
-                String IDCardNumber = mEdtidcard.getText().toString().trim();
-                String Tel = mEdttel.getText().toString().trim();
-                String HouseNumber = mEdthouse.getText().toString().trim();
-                String Province = mEdtprovince.getText().toString().trim();
-                String District = mEdtdistrict.getText().toString().trim();
-                String SubDistrict = mEdtsubdistrict.getText().toString().trim();
-                String Postalcode = mEdtpostalcode.getText().toString().trim();
-                String Password = mEdtpassword.getText().toString().trim();
-                String Repassword = mEdtrepassword.getText().toString().trim();
+        bt_confirm.setOnClickListener {
+            val userName = edt_username.getContents()
+            viewModel.requestCheckUsername(userName)
+        }
 
-                if (aBoolean) {
-                    Toast.makeText(getBaseContext(), "IDCardNumber repeat", Toast.LENGTH_SHORT).show();
-                } else {
-                    viewModel.requestregister(UserName, Name, SurName, IDCardNumber, Tel, HouseNumber, Province, District, SubDistrict, Postalcode, Password,Repassword);
-
-                }
-            }
-        });
-
-        mBtconfirm.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                String UserName = mEdtusername.getText().toString().trim();
-
-                viewModel.requestCheckUsername(UserName);
-
-            }
-        });
-
-        viewModel.responseToast().observe(this, new Observer<String>() {
-            @Override
-            public void onChanged(String s) {
-                Toast.makeText(getBaseContext(), s, Toast.LENGTH_SHORT).show();
-            }
-        });
-
+        viewModel.responseToast().observe {
+            toast(it)
+        }
     }
+
 }
