@@ -11,13 +11,16 @@ class CarDetailActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_car_detail)
 
+        val carId = intent.getIntExtra("carid",0)
+
         viewModel = ViewModelProvider(this).get(CarDetailViewModel::class.java)
 
         viewModel.responseProductDetail().observe {
             toast(it.carid.toString())
+
         }
 
-        viewModel.requestCarDetail(1)
+        viewModel.requestCarDetail(carId)
 
     }
 }

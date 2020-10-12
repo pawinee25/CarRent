@@ -24,15 +24,17 @@ class MainActivity : BaseActivity() {
 
         bt_in.setOnClickListener { startActivity(Intent(baseContext, InproductActivity::class.java)) }
 
-        val adt= CarAdapter()
+        val adt = CarAdapter()
         recyclerView.apply {
             layoutManager = LinearLayoutManager(baseContext)
             adapter = adt
         }
 
         adt.onClick = {
-//            toast(it.carid.toString())
-            startActivity(Intent(baseContext, CarDetailActivity::class.java))
+            Intent(baseContext, CarDetailActivity::class.java).apply {
+                putExtra("carid", it.carid)
+                startActivity(this)
+            }
         }
 
         viewModel.responseProduct().observe {

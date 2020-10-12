@@ -6,7 +6,7 @@ public class Product {
     private String type;
     private String gear;
     private String door;
-    private Double price;
+    private double price;
     private String color;
     private String images;
     private String numberseats;
@@ -14,7 +14,7 @@ public class Product {
     private String brandname;
     private String modelname;
 
-    public Product(int carid, String engine, String type, String gear, String door, Double price, String color, String images, String numberseats, String register, String brandname, String modelname) {
+    public Product(int carid, String engine, String type, String gear, String door, double price, String color, String images, String numberseats, String register, String brandname, String modelname) {
         this.carid = carid;
         this.engine = engine;
         this.type = type;
@@ -69,11 +69,11 @@ public class Product {
         this.door = door;
     }
 
-    public Double getPrice() {
+    public double getPrice() {
         return price;
     }
 
-    public void setPrice(Double price) {
+    public void setPrice(double price) {
         this.price = price;
     }
 
