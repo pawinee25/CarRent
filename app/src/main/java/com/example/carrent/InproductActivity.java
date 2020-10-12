@@ -9,7 +9,7 @@ public class InproductActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_inproduct);
+        setContentView(R.layout.activity_insertcar);
 
     }
 }
